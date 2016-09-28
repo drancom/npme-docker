@@ -216,6 +216,7 @@ components:
     extra_hosts:
       - hostname: '{{repl ConfigOption "etc_hosts_0_host" }}'
         address: '{{repl ConfigOption "etc_hosts_0_ip" }}'
+        when: '{{repl ConfigOptionNotEquals "etc_hosts_0_ip" "" }}'
   - source: replicated
     image_name: validate-and-store
     version: '3.0.0'
