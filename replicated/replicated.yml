@@ -213,6 +213,9 @@ components:
     - host_path: '{{repl ConfigOption "data_host_path" }}'
       container_path: /etc/npme/data
     support_files: []
+    extra_hosts:
+      - hostname: '{{repl ConfigOption "etc_hosts_0_host" }}'
+        address: '{{repl ConfigOption "etc_hosts_0_ip" }}'
   - source: replicated
     image_name: validate-and-store
     version: '3.0.0'
@@ -1135,6 +1138,22 @@ config:
       recommended: true
       type: text
       required: false
+  - name: etc_hosts_label
+    when: github_type=github_type_enterprise
+    type: label
+    value: Optionally add an entry to `/etc/hosts`
+  - name: etc_hosts_0_ip
+    when: github_type=github_type_enterprise
+    title: IP
+    type: text
+    required: false
+    affix: left
+  - name: etc_hosts_0_host
+    when: github_type=github_type_enterprise
+    title: Host
+    type: text
+    required: false
+    affix: right
 - name: bitbucket
   when: auth_source=auth_type_bitbucket
   title: Bitbucket Integration
